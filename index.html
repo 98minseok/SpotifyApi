@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <title>Vite + Vue</title>
+  </head>
+  <body>
+    <button id="togglePlay">Toggle Play</button>
+
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = "BQCZ3yP5X_-IcClE1cZrGjD83iWrNIUNWPDa9eJdKQv3qeYBkwT-KMkWI16SgnBCxs1yaV92dp6pewFyx7PE5GWxGRu-qrtV3F_9p3zgIEm9Ke3e-JiEkMvPvW8xstULaOno6k3ae4Lpvn7YgJSTK-RMeHRU6Ne1u0T1d-W4Ia7RfI60JEGQn181NZptaqvuDj8oo2YhAA-xdzY4o8HPDSO7940Ycxcz4hEv"
+            const player = new Spotify.Player({
+                name: 'Web Playback SDK Quick Start Player',
+                getOAuthToken: cb => { cb(token); },
+                volume: 0.5
+            });
+
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with Device ID', device_id);
+            });
+
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+                console.log('Device ID has gone offline', device_id);
+            });
+
+            player.addListener('initialization_error', ({ message }) => {
+                console.error(message);
+            });
+
+            player.addListener('authentication_error', ({ message }) => {
+                console.error(message);
+            });
+
+            player.addListener('account_error', ({ message }) => {
+                console.error(message);
+            });
+
+            document.getElementById('togglePlay').onclick = function() {
+              player.togglePlay();
+            };
+
+            player.connect();
+        }
+    </script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
