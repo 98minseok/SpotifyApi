@@ -21,14 +21,12 @@
             </li>
         </ul>
     </div>
-    <SpotifyPlayer></SpotifyPlayer>
 </template>
 
 <script>
 import { ref, onMounted, watch, reactive, provide } from 'vue';
 import useSpotify from '../modules/spotify';
 import axios from 'axios';
-import SpotifyPlayer from '../components/SpotifyPlayer.vue';
 export default {
     setup() {
         const verify = ref(null);
@@ -62,7 +60,6 @@ export default {
         return { verify , onClickButton , album_id,album , test_url , onClickTest , onClickSearch,genre};
     },
     components :{
-        SpotifyPlayer
     }
 };
 
